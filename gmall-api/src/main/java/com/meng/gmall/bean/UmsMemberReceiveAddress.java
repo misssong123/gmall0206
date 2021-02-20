@@ -96,4 +96,20 @@ public class UmsMemberReceiveAddress implements Serializable {
     public void setDetailAddress(String detailAddress) {
         this.detailAddress = detailAddress;
     }
+
+    @Override
+    public String toString() {
+        return "UmsMemberReceiveAddress{" +
+                "id='" + id + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", defaultStatus=" + defaultStatus +
+                ", postCode='" + postCode + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                ", detailAddress='" + detailAddress + '\'' +
+                '}';
+    }
 }

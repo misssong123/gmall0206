@@ -62,4 +62,15 @@ public class PmsBaseAttrValue implements Serializable {
     public void setUrlParam(String urlParam) {
         this.urlParam = urlParam;
     }
+
+    @Override
+    public String toString() {
+        return "PmsBaseAttrValue{" +
+                "id='" + id + '\'' +
+                ", valueName='" + valueName + '\'' +
+                ", attrId='" + attrId + '\'' +
+                ", isEnabled='" + isEnabled + '\'' +
+                ", urlParam='" + urlParam + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.meng.gmall.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.meng.gmall.bean.PmsBaseAttrInfo;
+import com.meng.gmall.bean.PmsBaseAttrValue;
 import com.meng.gmall.service.AttrService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +21,7 @@ public class AttrController {
     @RequestMapping("saveAttrInfo")
     @ResponseBody
     public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo){
-
+        attrService.saveInfo(pmsBaseAttrInfo);
         return "success";
     }
 
@@ -30,5 +31,12 @@ public class AttrController {
 
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = attrService.attrInfoList(catalog3Id);
         return pmsBaseAttrInfos;
+    }
+
+    @RequestMapping("getAttrValueList")
+    @ResponseBody
+    public List<PmsBaseAttrValue> getAttrValueList(String attrId){
+        List<PmsBaseAttrValue> pmsBaseAttrValues = attrService.getAttrValueList(attrId);
+        return pmsBaseAttrValues;
     }
 }
