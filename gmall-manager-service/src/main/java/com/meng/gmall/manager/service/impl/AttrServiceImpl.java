@@ -17,14 +17,20 @@ public class AttrServiceImpl implements AttrService {
     PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
     @Autowired
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
+    //显示平台属性及对应的平台属性值
     @Override
     public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
         PmsBaseAttrInfo demo = new PmsBaseAttrInfo();
         demo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(demo);
+        //获取平台属性值用于填加sku时使用
+        for (PmsBaseAttrInfo pmsBaseAttrInfo : pmsBaseAttrInfos){
+            List<PmsBaseAttrValue> pmsBaseAttrValues = getAttrValueList(pmsBaseAttrInfo.getId());
+            pmsBaseAttrInfo.setAttrValueList(pmsBaseAttrValues);
+        }
         return pmsBaseAttrInfos;
     }
-
+    //保存平台属性值
     @Override
     public void saveInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
         String id = pmsBaseAttrInfo.getId();
@@ -52,7 +58,7 @@ public class AttrServiceImpl implements AttrService {
         }
 
     }
-
+    //获取平台属性值
     @Override
     public List<PmsBaseAttrValue> getAttrValueList(String attrId) {
         PmsBaseAttrValue demo = new PmsBaseAttrValue();
