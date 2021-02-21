@@ -12,6 +12,7 @@ import java.util.List;
 public class UserMemberReceiveAddressServiceImpl implements UserMemberReceiveAddressService {
     @Autowired
     UmsMemberReceiveAddressMapper umsMemberReceiveAddressMapper;
+
     @Override
     public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId) {
         UmsMemberReceiveAddress demo = new UmsMemberReceiveAddress();

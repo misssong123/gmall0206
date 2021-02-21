@@ -20,14 +20,14 @@ public class PmsUploadUtil {
             // 获得一个trackerServer的实例
             TrackerServer trackerServer = trackerClient.getConnection();
             // 通过tracker获得一个Storage链接客户端
-            StorageClient storageClient = new StorageClient(trackerServer,null);
+            StorageClient storageClient = new StorageClient(trackerServer, null);
             //转换成二进制流
             byte[] bytes = multipartFile.getBytes();
             //获取文件名称后缀
             String originalFilename = multipartFile.getOriginalFilename();
-            String suffixName = originalFilename.substring(originalFilename.lastIndexOf(".")+1);
+            String suffixName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
             String[] uploadFiles = storageClient.upload_file(bytes, suffixName, null);
-            for(String url : uploadFiles){
+            for (String url : uploadFiles) {
                 imgUrl += "/" + url;
             }
         } catch (Exception e) {

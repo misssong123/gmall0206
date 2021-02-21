@@ -1,4 +1,5 @@
 package com.meng.gmall.bean;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +23,7 @@ public class PmsProductInfo implements Serializable {
     private String description;
 
     @Column
-    private  String catalog3Id;
+    private String catalog3Id;
 
     @Transient
     private List<PmsProductSaleAttr> spuSaleAttrList;

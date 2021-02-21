@@ -12,6 +12,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+
     @Override
     public List<UmsMember> getAllUser() {
         List<UmsMember> umsMembers = userMapper.selectAll();

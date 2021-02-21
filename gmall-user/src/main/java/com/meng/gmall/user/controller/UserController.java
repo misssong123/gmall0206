@@ -13,17 +13,17 @@ import java.util.List;
 public class UserController {
     @ResponseBody
     @RequestMapping("index")
-    public String index(){
+    public String index() {
         return "hello world";
     }
+
     @Autowired
     UserService userService;
 
 
-
     @RequestMapping("getAllUser")
     @ResponseBody
-    public List<UmsMember> getAllUser(){
+    public List<UmsMember> getAllUser() {
         List<UmsMember> umsMembers = userService.getAllUser();
         return umsMembers;
     }

@@ -18,7 +18,7 @@ public class SaleAttrController {
 
     @RequestMapping("baseSaleAttrList")
     @ResponseBody
-    public List<PmsBaseSaleAttr> baseSaleAttrList(){
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
         List<PmsBaseSaleAttr> pmsBaseSaleAttrs = saleAttrService.baseSaleAttrList();
         return pmsBaseSaleAttrs;
     }

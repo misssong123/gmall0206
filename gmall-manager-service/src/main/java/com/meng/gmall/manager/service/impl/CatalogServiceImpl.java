@@ -11,6 +11,7 @@ import com.meng.gmall.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
 @Service
 public class CatalogServiceImpl implements CatalogService {
 

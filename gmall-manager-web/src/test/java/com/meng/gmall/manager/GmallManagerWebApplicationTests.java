@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class GmallManagerWebApplicationTests {
 
     @Test
-    public void contextLoads() throws Exception{
+    public void contextLoads() throws Exception {
         //配置fdfs的全局链接地址
         String tracker = GmallManagerWebApplicationTests.class.getResource("/tracker.conf").getPath();
         ClientGlobal.init(tracker);
@@ -22,12 +22,12 @@ public class GmallManagerWebApplicationTests {
         // 获得一个trackerServer的实例
         TrackerServer trackerServer = trackerClient.getConnection();
         // 通过tracker获得一个Storage链接客户端
-        StorageClient storageClient = new StorageClient(trackerServer,null);
+        StorageClient storageClient = new StorageClient(trackerServer, null);
         String[] uploadInfos = storageClient.upload_file("C:\\Users\\lenovo\\Pictures\\Saved Pictures\\小米手机1.jpg", "jpg", null);
         String url = "http://192.168.5.155";
 
         for (String uploadInfo : uploadInfos) {
-            url += "/"+uploadInfo;
+            url += "/" + uploadInfo;
         }
 
         System.out.println(url);

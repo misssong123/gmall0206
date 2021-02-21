@@ -5,3 +5,4 @@ gmall-user-service 8070
 gmall-user-web 8090
 gmall-manager-service 8071
 gmall-manager-web 8091
+gmall-items-web 8092

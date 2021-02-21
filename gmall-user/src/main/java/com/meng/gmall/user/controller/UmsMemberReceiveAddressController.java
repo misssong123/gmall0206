@@ -16,7 +16,7 @@ public class UmsMemberReceiveAddressController {
 
     @RequestMapping("getReceiveAddressByMemberId")
     @ResponseBody
-    public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId){
+    public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId) {
         List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = userMemberReceiveAddressService.getReceiveAddressByMemberId(memberId);
         return umsMemberReceiveAddresses;
     }
