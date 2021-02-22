@@ -16,7 +16,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -82,8 +84,9 @@ public class SkuServiceImpl implements SkuService {
         if (StringUtils.isNotBlank(skuInfo)){
             pmsSkuInfo = JSON.parseObject(skuInfo, PmsSkuInfo.class);
         }else {
-            // 设置分布式锁,避免缓存击穿
-            String OK = jedis.set("sku:" + skuId + ":lock", "1", "nx", "px", 10);
+            // 设置分布式锁,避免缓存击穿,设置值避免误删其他的锁
+            String token = UUID.randomUUID().toString();
+            String OK = jedis.set("sku:" + skuId + ":lock", token, "nx", "px", 10);
             if (StringUtils.isNotBlank(OK)&& OK.equals("OK")){
                 pmsSkuInfo = getSkuByIdFromDb(skuId);
                 if(pmsSkuInfo!=null){
@@ -94,6 +97,15 @@ public class SkuServiceImpl implements SkuService {
                     // 为了防止缓存穿透将，null或者空字符串值设置给redis
                     jedis.setex("sku:"+skuId+":info",60*3,JSON.toJSONString(""));
                 }
+                //比较是否为同一个进程上的锁，避免误删锁的操作
+                /*String lockToken = jedis.get("sku:" + skuId + ":lock");
+                if(StringUtils.isNotBlank(lockToken)&&lockToken.equals(token)){
+                    //jedis.eval("lua");可与用lua脚本，在查询到key的同时删除该key，防止高并发下的意外的发生
+                    jedis.del("sku:" + skuId + ":lock");// 用token确认删除的是自己的sku的锁
+                }*/
+                //lua脚本解决，避免判断后锁恰好失效
+                String script ="if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+                jedis.eval(script, Collections.singletonList("sku:" + skuId + ":lock"),Collections.singletonList(token));
             }else {
                 //自旋，等待下次调用
                 try {
